@@ -7,6 +7,7 @@ interface ITask {
     creationDate : Date;
     endDate : Date;
     category : string;
+    isDone: boolean;
     user : IUser;
 }; 
 
@@ -28,6 +29,9 @@ const TaskSchema  = new Schema<ITask>({
     },
     category : {
         type : String
+    },
+    isDone : {
+        type : Boolean
     },
     user: {
         type: Schema.Types.ObjectId,

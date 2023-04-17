@@ -1,0 +1,66 @@
+.Modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ModalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 40%;
+}
+
+.ModalHeader, .ModalFooter {
+    padding: 10px;
+}
+
+.ModalBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.ModalFooter button {
+    padding: 15px;
+    width: 20%;
+    border: none;
+    color: white;
+    border-radius: 30px;
+}
+
+.ButtonSave {
+    background-color: #4D4545;
+}
+
+.ButtonClose {
+    background-color: #8b0000;
+}
+
+.ModalFooter {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.Modal input, textarea, select {
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid black;
+  margin: 10px;
+  font-size: 17px;
+}
+
+.Modal textarea {
+    resize: vertical;
+    max-height: 150px;
+}

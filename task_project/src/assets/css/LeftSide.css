@@ -1,0 +1,60 @@
+.LeftSide {
+    width: 25%;
+    padding: 20px;
+    background: #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 30px 30px 0px;
+}
+
+.UserList {
+    height: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.user_box {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 15px;
+    align-items: center;
+    transition: 0.5s ease;
+}
+
+.user_box:hover {
+    transition: 0.5s ease;
+    box-shadow: none;
+  }
+
+.user_information {
+    text-align: left;
+}
+
+.user_name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ActionBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ButtonAddUser {
+    position: relative;
+    bottom: 0;
+    width: 50%;
+    background: #4D4545;
+    border-radius: 30px;
+    color: white;
+    padding: 15px;
+    border: none;
+}

@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+}
+
+html, body, #root, .App {
+  height: 100%
+}
+
+button, select, .user_box, input[type='checkbox'], input[type='date'] {
+  cursor: pointer;
+}
+
+.App {
+  display: flex;
+  text-align: center;
+}
+
+.SeparationLine {
+  display: block;
+  margin: auto;
+  width: 90%;
+  height: 1px;
+  background-color: black;
+}
+
+.ActionButton {
+  padding: 10px;
+  border-radius: 50%;
+  background: #D9D9D9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  margin: 5px;
+}
+
+footer{
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

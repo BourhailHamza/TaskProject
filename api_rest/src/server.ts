@@ -2,24 +2,30 @@ import express, { Application, Request, Response } from 'express';
 import  { connect } from 'mongoose';
 import { getAllUsers, getUserById, addUser, deleteUser } from './handlers/User';
 import { getAllTasks, getTaskById, addTask, deleteTask, getTasksByUser } from './handlers/Task';
+import cors from 'cors';
 
 const port: number = 8080;
 
 const app: Application = express();
+
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+
 app.use(express.json());
 
 //Routes for users
-app.get('/users/:id', getUserById);
+app.get('/user/:id', getUserById);
 app.get('/users', getAllUsers );
-app.post('/users', addUser);
-app.delete('/deleteuser/:id', deleteUser);
+app.post('/user', addUser);
+app.delete('/user/:id', deleteUser);
 
 //Routes for tasks
 app.get('/tasks', getAllTasks);
 app.get('/task/:id', getTaskById);
-app.get('/users/:id/tasks', getTasksByUser);
-app.post('/addtask', addTask);
-app.delete('/deletetask/:id', deleteTask);
+app.get('/user/:id/tasks', getTasksByUser);
+app.post('/task', addTask);
+app.delete('/task/:id', deleteTask);
 
 const dbConnect = async (): Promise<void> => {
 
