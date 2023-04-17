@@ -38,20 +38,20 @@ function RightSide(props: any) {
 
     const getUsersTasks = async (userId: any) => {
 
-        {/** Call function to get all user tasks */}
+        // Call function to get all user tasks
         const tasks: Task[] = await getUserTasks(userId);
 
-        {/** Save the tasks on array */}
+        // Save the tasks on array
         setTask(tasks);
 
     }
 
     const getTasks = async () => {
 
-        {/** Call function to get all user tasks */}
+        // Call function to get all user tasks
         const tasks = await getAllTasks();
 
-        {/** Save the tasks on array */}
+        // Save the tasks on array
         setTask(tasks);
 
     }
@@ -102,29 +102,12 @@ function RightSide(props: any) {
 
                 <div className='TasksList'>
 
-                    <h3>LISTE DES TÂCHES DE { props.userName }</h3>
+                    <h3>LISTE DES TÂCHES DE { props.userName.toUpperCase() }</h3>
 
                     <div className='TaskActions'>
 
-                        {/* --- Select filtering tasks --- */}
-                        <select name="FilterTasks" id="FilterTasks" disabled>
-
-                            <option value="etudes">Etudes</option>
-                            <option value="maison">Maison</option>
-                            <option value="travail">Travail</option>
-                            <option value="loisirs">Loisirs</option>
-
-                        </select>
-
-                        {/* --- Select ordering tasks --- */}
-                        <select name="OrderByTasks" id="OrderByTasks" disabled>
-                            <option value="">Filtrer par</option>
-                            <option value="alphabetique">Orde alphabétique</option>
-                            <option value="dateFin">Date d'écheance</option>
-                        </select>
-
                         {/* --- Button open modal to add task --- */}
-                        <button id='ButtonAddTask' onClick={ () => setShow(true) }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
+                        <button id='ButtonAddTask' onClick={ () => { setShow(true); setNewTask({...newTask,"category" : "etudes"}); } }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
 
                         {/* --- Modal with form elements --- */}
                         <Modal title="AJOUTER UNE TÂCHE" id="" newTask={ newTask } addStateTask={ addStateTask } email="" name="" onClose={ () => setShow(false) } show={ show } >
@@ -136,13 +119,13 @@ function RightSide(props: any) {
                                 <option value="travail">Travail</option>
                                 <option value="loisirs">Loisirs</option>
                             </select>
-                            <input name="endDate" type="date" onChange={ saveData } />
+                            <input name="endDate" type="date" defaultValue={ new Date().toISOString().slice(0, 10)} onChange={ saveData } />
                         </Modal>
                         {/* ---------- END Modal ---------- */}
 
                     </div>
 
-                    <h3 className="WarningMessage">PAS DE TÂCHES DISPONIBLES POUR <strong>{ props.userName }</strong></h3>
+                    <h3 className="WarningMessage">PAS DE TÂCHES DISPONIBLES POUR <strong>{ props.userName.toUpperCase() }</strong></h3>
                 </div>
 
             </div>
@@ -154,33 +137,17 @@ function RightSide(props: any) {
 
             <div className='TasksList'>
 
-                <h3>LISTE DES TÂCHES DE { props.userName }</h3>
-
+                {userId != "0" ?
+                    <h3>LISTE DES TÂCHES DE { props.userName.toUpperCase() }</h3> 
+                : 
+                   <h3>LISTE DE TOUTES LES TÂCHES</h3>
+                }
+                
                 {/* --- SECTION 1 : Selectors and button for filters, order by and add task --- */}
                 <div className='TaskActions'>
 
-                    {/* --- Select filtering tasks --- */}
-                    <select name="FilterTasks" id="FilterTasks">
-
-                        <option value="">Tout</option>
-                        <option value="etudes">Etudes</option>
-                        <option value="maison">Maison</option>
-                        <option value="travail">Travail</option>
-                        <option value="loisirs">Loisirs</option>
-
-                    </select>
-
-                    {/* --- Select ordering tasks --- */}
-                    <select name="OrderByTasks" id="OrderByTasks">
-                        <option value="">Filtrer par</option>
-                        <option value="alphabetique">Orde alphabétique</option>
-                        <option value="dateFin">Date d'écheance</option>
-                    </select>
-
                     {userId != "0" ?
-
-                    <button id='ButtonAddTask' onClick={ () => setShow(true) }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
-
+                        <button id='ButtonAddTask' onClick={ () => { setShow(true); setNewTask({...newTask,"category" : "etudes"}); } }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
                     : null }
 
                     {/* --- Modal with form elements --- */}
@@ -206,12 +173,10 @@ function RightSide(props: any) {
                         return(
                             <div key={ index } className='TaskContainer'>
 
-                                <img src="./icons/move_icon.png" alt="Move" />
-
                                 <div className='TaskInformation'>
 
                                     <div className='LeftBlockTask'>
-                                        <h4 className='CategoryTask'>{ task.category }</h4>
+                                        <h4 className='CategoryTask'>{ task.category.toUpperCase() }</h4>
                                         <div className='TaskDescription'>
                                             <h4>{ task.title }</h4>
                                             <p>{ task.description }</p>

@@ -32,8 +32,18 @@ button, select, .user_box, input[type='checkbox'], input[type='date'] {
   margin: 5px;
 }
 
-footer{
-  position: relative;
-  bottom: 0;
-  width: 100%;
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid black;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  background-color: green;
 }

@@ -1,3 +1,5 @@
+import User from "./User";
+
 export default interface Task {
     _id : string,
     title : string;
@@ -6,4 +8,5 @@ export default interface Task {
     endDate : Date;
     category : string;
     isDone : boolean;
+    user: User;
 }; 
