@@ -191,8 +191,6 @@ function RightSide(props: any) {
 
                                 <div className='TaskInformation'>
 
-                                    <p>{ task.user.name }</p>
-
                                     <div className='LeftBlockTask'>
                                         <h4 className='CategoryTask'>{ task.category.toUpperCase() }</h4>
                                         <div className='TaskDescription'>
