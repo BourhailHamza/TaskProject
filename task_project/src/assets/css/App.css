@@ -45,5 +45,5 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:checked {
-  background-color: green;
+  background-color: #6BBA46;
 }

@@ -8,7 +8,7 @@ interface ITask {
     endDate : Date;
     category : string;
     isDone: boolean;
-    user : IUser;
+    user : Schema.Types.ObjectId;
 }; 
 
 const TaskSchema  = new Schema<ITask>({

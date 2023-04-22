@@ -2,8 +2,9 @@ import '../assets/css/RightSide.css';
 import SeparationLine from './SeparationLine';
 import { Modal } from './Modal';
 import { useState, useEffect } from 'react';
-import { getUserTasks, getAllTasks, deleteTask } from '../services/task.service';
+import { getUserTasks, getAllTasks, modifyTaskById, deleteTask } from '../services/task.service';
 import Task from '../types/Task';
+import User from '../types/User';
 
 function RightSide(props: any) {    
 
@@ -68,7 +69,12 @@ function RightSide(props: any) {
     const deleteUserTask = async (id: string) => {
 
         await deleteTask(id);
-        getUsersTasks(userId);
+
+        if(userId === "0"){
+            getTasks();
+        }else {
+            getUsersTasks(userId);
+        }
 
     }
 
@@ -80,6 +86,15 @@ function RightSide(props: any) {
         });
 
     }
+
+    const onClickDone = async (id: string, isDone: boolean) => {
+        try {
+          await modifyTaskById(id, isDone); // Call the modifyTaskById function to update task's isDone value
+          // Handle success or display a success message
+        } catch (error) {
+          // Handle error or display an error message
+        }
+      };
 
     if(userId === "") {
         return(
@@ -171,9 +186,12 @@ function RightSide(props: any) {
                 {tasks.length > 0 ?
                     tasks.map( (task, index) => {
                         return(
+                            
                             <div key={ index } className='TaskContainer'>
 
                                 <div className='TaskInformation'>
+
+                                    <p>{ task.user.name }</p>
 
                                     <div className='LeftBlockTask'>
                                         <h4 className='CategoryTask'>{ task.category.toUpperCase() }</h4>
@@ -208,7 +226,7 @@ function RightSide(props: any) {
                                 </div>
 
                                 <div className='TaskStatus'>
-                                    <input name="isDone" type="checkbox" checked={ task.isDone } onClick={ saveData }/>
+                                    <input name="isDone" type="checkbox" defaultChecked={ task.isDone } onClick={ () => { onClickDone(task._id, !task.isDone) } }/>
                                 </div>
                                 
                             </div>

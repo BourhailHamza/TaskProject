@@ -47,7 +47,6 @@ const LeftSide = (props: any) => {
   }
 
   const choseUser = (id: string, userName: any) => {
-    console.log(id);
     props.setUserId(id);
     props.setClicked(true);
     props.setUserName(userName);

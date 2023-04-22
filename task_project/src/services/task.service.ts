@@ -43,6 +43,25 @@ const getUserTasks = async (id: string) => {
 
 }
 
+//Modify status of the task
+const modifyTaskById = async (id: string, isDone: boolean) => {
+    const request = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isDone }), // Convert isDone value to JSON string
+    };
+  
+    try {
+      const response = await fetch(`http://127.0.0.1:8080/task/${id}`, request);
+      const updatedTask = await response.json();
+      // Handle success response, if needed
+      console.log(updatedTask); // You can log or process the updated task data as needed
+    } catch (error) {
+      // Handle error response, if needed
+      console.error(error);
+    }
+  };
+
 const getAllTasks = async () => {
    
     try {
@@ -82,4 +101,4 @@ const deleteTask = async (id: string) => {
 
 }
 
-export { addTask, getUserTasks, getAllTasks, deleteTask }
+export { addTask, getUserTasks, getAllTasks, modifyTaskById, deleteTask }

@@ -45,6 +45,30 @@ const getTaskById = async (request: Request, response: Response): Promise<void> 
 
 }
 
+//Modify "isDone" boolean column task by id
+const modifyTaskById = async (request: Request, response: Response): Promise<void> => {
+
+    const id = request.params.id;
+    const isDone = request.body.isDone;
+
+    try {
+        const task = await Task.findById(id);
+        if (task) {
+            task.isDone = isDone;
+            await task.save();
+            response.json(task);
+        } else {
+            response.status(404).send({error: {
+                code: 404,
+                message: "Not found"
+            }});
+        }
+    } catch (error) {
+        response.status(500).json({error: error});
+    }
+
+}
+
 //Delete task by id
 const deleteTask = async (request: Request, response: Response): Promise<void> => {
 
@@ -79,4 +103,4 @@ const getTasksByUser = async (request: Request, response: Response): Promise<voi
 
 }
 
-export { addTask, getAllTasks, getTaskById, deleteTask, getTasksByUser };
+export { addTask, getAllTasks, getTaskById, modifyTaskById, deleteTask, getTasksByUser };

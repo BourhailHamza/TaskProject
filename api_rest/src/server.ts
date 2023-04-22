@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import  { connect } from 'mongoose';
 import { getAllUsers, getUserById, addUser, deleteUser } from './handlers/User';
-import { getAllTasks, getTaskById, addTask, deleteTask, getTasksByUser } from './handlers/Task';
+import { getAllTasks, getTaskById, addTask, modifyTaskById, deleteTask, getTasksByUser } from './handlers/Task';
 import cors from 'cors';
 
 const port: number = 8080;
@@ -24,6 +24,7 @@ app.delete('/user/:id', deleteUser);
 app.get('/tasks', getAllTasks);
 app.get('/task/:id', getTaskById);
 app.get('/user/:id/tasks', getTasksByUser);
+app.put('/task/:id', modifyTaskById);
 app.post('/task', addTask);
 app.delete('/task/:id', deleteTask);
 
