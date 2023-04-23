@@ -197,18 +197,17 @@ function RightSide(props: any) {
                 {/* --------- Container with task information and actions --------- */}
                 {tasks.length > 0 ?
                     tasks.map( (task, index) => {
-                        console.log(task.user.name)
                         return(
                             
                             <div key={ index } className='TaskContainer'>
 
-                                    {userId != "0" ?
-                                        null 
-                                    : 
+                                {userId !== "0" ? null : 
+                                    task && task.user && task.user.name ? (
                                         <div id="TaskUserName">
-                                            <p>{ task.user.name.toUpperCase() }</p>
+                                        <p>{task.user.name.toUpperCase()}</p>
                                         </div>
-                                    }
+                                    ) : null
+                                }
 
                                 <div className='TaskInformation'>
                                     
