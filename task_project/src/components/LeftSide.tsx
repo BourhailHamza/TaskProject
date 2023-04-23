@@ -1,9 +1,10 @@
 import '../assets/css/LeftSide.css';
+import { useState, useEffect } from 'react';
+
+import { getAllUsers, deleteUserById } from '../services/user.service';
 import SeparationLine from './SeparationLine';
 import { Modal } from './Modal';
-import { useState, useEffect } from 'react';
 import User from '../types/User';
-import { getAllUsers, deleteUserById } from '../services/user.service';
 
 const LeftSide = (props: any) => {
 
@@ -11,6 +12,7 @@ const LeftSide = (props: any) => {
   const [ users, setUsers ] = useState<User[]>([]);
   const [ newUser, setNewUser ] = useState({});
 
+  
   useEffect(() => {
     getUsersData();
   }, []);
@@ -20,16 +22,18 @@ const LeftSide = (props: any) => {
     setUsers([...users, user]);
   };
 
+  // Get all users
   const getUsersData = async () => {
 
-    {/** Call function to get all users */}
+    // Call function to get all users
     const users: User[] = await getAllUsers();
 
-    {/** Save the user on array */}
+    // Save the user on array 
     setUsers(users);
 
   }
 
+  // Delete user
   const deleteUser = async (id: string) => {
 
     await deleteUserById(id);
@@ -37,6 +41,7 @@ const LeftSide = (props: any) => {
 
   }
 
+  // Adding new user on the users state
   const saveData = (event: any) => {
 
       setNewUser({
@@ -46,6 +51,7 @@ const LeftSide = (props: any) => {
     
   }
 
+  // On click on user box, change this RightSide variables
   const choseUser = (id: string, userName: any) => {
     props.setUserId(id);
     props.setClicked(true);
@@ -60,9 +66,12 @@ const LeftSide = (props: any) => {
       <SeparationLine/>
 
       <div className='UserList'>
+
+        {/** On click button to show all users, set user id to 0 and username no none */}
         <div className='user_box' onClick={ () => { choseUser("0", "none") }}> 
           <p className='user_name'>Afficher toutes les tâches</p>
         </div>
+        
         {/** Loop on array printing all user informations */}
         {users.length > 0 ?
           users.map( (user, index) => {

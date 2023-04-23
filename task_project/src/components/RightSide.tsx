@@ -1,28 +1,28 @@
 import '../assets/css/RightSide.css';
+import { useState, useEffect } from 'react';
+
+import Task from '../types/Task';
+import { getUserTasks, getAllTasks, modifyTaskById, deleteTask } from '../services/task.service';
 import SeparationLine from './SeparationLine';
 import { Modal } from './Modal';
-import { useState, useEffect } from 'react';
-import { getUserTasks, getAllTasks, modifyTaskById, deleteTask } from '../services/task.service';
-import Task from '../types/Task';
-import User from '../types/User';
 
 function RightSide(props: any) {    
 
     const [ show, setShow ] = useState(false);
-    const [ isDone, setIsDone ] = useState(false);
     const [ tasks, setTask ] = useState<Task[]>([]);
+    var date = new Date().toISOString().split('T')[0];
     const [ newTask, setNewTask ] = useState({
         'title': '',
         'description': '',
         'creationDate': '',
-        'endDate': '',
+        'endDate': date,
         'category': 'etudes',
         'isDone': false,
         'user': ''
     });
+
     const userId = props.userId;
 
-    var date = new Date().toISOString().split('T')[0];
 
     useEffect(() => {
         setNewTask({
@@ -37,6 +37,7 @@ function RightSide(props: any) {
         setTask([...tasks, task]);
     };
 
+    // Get all task of user with id
     const getUsersTasks = async (userId: any) => {
 
         // Call function to get all user tasks
@@ -47,6 +48,7 @@ function RightSide(props: any) {
 
     }
 
+    // Get all the tasks
     const getTasks = async () => {
 
         // Call function to get all user tasks
@@ -57,15 +59,21 @@ function RightSide(props: any) {
 
     }
 
+    // Prevent loops: I had an loop problem, and i solved it with this (UseEffect not worked for this)
     if (props.clicked) {
+        // IF user id equals 0, get all tasks
         if(userId === "0"){
             getTasks();
-        }else {
+        }
+        
+        //ELSE only get the user task
+        else {
             getUsersTasks(userId);
         }
         props.setClicked(false);
     }
 
+    // Delete task of user by id
     const deleteUserTask = async (id: string) => {
 
         await deleteTask(id);
@@ -78,6 +86,7 @@ function RightSide(props: any) {
 
     }
 
+    // Update task sate data with the added task
     const saveData = (event: any) => {
 
         setNewTask({
@@ -87,15 +96,21 @@ function RightSide(props: any) {
 
     }
 
+    // Call API to change task status on check and uncheck
     const onClickDone = async (id: string, isDone: boolean) => {
         try {
-          await modifyTaskById(id, isDone); // Call the modifyTaskById function to update task's isDone value
-          // Handle success or display a success message
-        } catch (error) {
-          // Handle error or display an error message
-        }
-      };
 
+            // Call the modifyTaskById function to update task's isDone value
+            await modifyTaskById(id, isDone); 
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+    };
+
+    // IF not choosen user
     if(userId === "") {
         return(
             <div className="RightSide">
@@ -111,6 +126,7 @@ function RightSide(props: any) {
         );
     }
 
+    // IF user havem't tasks
     if (tasks.length <= 0) {
         return(
             <div className="RightSide">
@@ -124,7 +140,7 @@ function RightSide(props: any) {
                         {/* --- Button open modal to add task --- */}
                         <button id='ButtonAddTask' onClick={ () => { setShow(true); setNewTask({...newTask,"category" : "etudes"}); } }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
 
-                        {/* --- Modal with form elements --- */}
+                        {/* --- Modal add new tasks --- */}
                         <Modal title="AJOUTER UNE TÂCHE" id="" newTask={ newTask } addStateTask={ addStateTask } email="" name="" onClose={ () => setShow(false) } show={ show } >
                             <input name="title" type="text" placeholder='Titre' onChange={ saveData } required/>
                             <textarea name="description" placeholder='Description' onChange={ saveData }></textarea>
@@ -136,7 +152,6 @@ function RightSide(props: any) {
                             </select>
                             <input name="endDate" type="date" defaultValue={ new Date().toISOString().slice(0, 10)} onChange={ saveData } />
                         </Modal>
-                        {/* ---------- END Modal ---------- */}
 
                     </div>
 
@@ -147,6 +162,7 @@ function RightSide(props: any) {
         );
     }
     
+    // Display the tasks
     return (
         <div className="RightSide">
 
@@ -158,14 +174,13 @@ function RightSide(props: any) {
                    <h3>LISTE DE TOUTES LES TÂCHES</h3>
                 }
                 
-                {/* --- SECTION 1 : Selectors and button for filters, order by and add task --- */}
                 <div className='TaskActions'>
 
                     {userId != "0" ?
                         <button id='ButtonAddTask' onClick={ () => { setShow(true); setNewTask({...newTask,"category" : "etudes"}); } }><img src="./icons/more_icon.png" /> Nouvelle tâche</button>
                     : null }
 
-                    {/* --- Modal with form elements --- */}
+                    {/* --- Modal add new --- */}
                     <Modal title="AJOUTER UNE TÂCHE" newTask={ newTask } addStateTask={ addStateTask }  setTask={ setTask } id="" email="" name="" onClose={ () => setShow(false) } show={ show } >
                         <input name="title" type="text" placeholder='Titre' onChange={ saveData } required/>
                         <textarea name="description" placeholder='Description' onChange={ saveData }></textarea>
@@ -175,14 +190,12 @@ function RightSide(props: any) {
                             <option value="travail">Travail</option>
                             <option value="loisirs">Loisirs</option>
                         </select>
-                        <input name="endDate" type="date" defaultValue={ new Date().toISOString().slice(0, 10)} onChange={ saveData } />
+                        <input name="endDate" type="date" defaultValue={ date } onChange={ saveData } />
                     </Modal>
-                    {/* ---------- END Modal ---------- */}
 
                 </div>
-                {/* ------------------------------ END SECTION 1 ------------------------------ */}
-                {/* --------------------------------------------------------------------------- */}
-                {/* --------- SECTION 2 : Container with task information and actions --------- */}
+                
+                {/* --------- Container with task information and actions --------- */}
                 {tasks.length > 0 ?
                     tasks.map( (task, index) => {
                         return(
@@ -231,7 +244,6 @@ function RightSide(props: any) {
                         )
                     })
                 : null }
-                {/* ------------------------------ END SECTION 2 ------------------------------ */}
 
                 <SeparationLine/>
 
