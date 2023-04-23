@@ -8,5 +8,5 @@ export default interface Task {
     endDate : Date;
     category : string;
     isDone : boolean;
-    user: User;
+    user: any;
 }; 

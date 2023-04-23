@@ -23,7 +23,6 @@ function RightSide(props: any) {
 
     const userId = props.userId;
 
-
     useEffect(() => {
         setNewTask({
             ...newTask,
@@ -198,12 +197,21 @@ function RightSide(props: any) {
                 {/* --------- Container with task information and actions --------- */}
                 {tasks.length > 0 ?
                     tasks.map( (task, index) => {
+                        console.log(task.user.name)
                         return(
                             
                             <div key={ index } className='TaskContainer'>
 
-                                <div className='TaskInformation'>
+                                    {userId != "0" ?
+                                        null 
+                                    : 
+                                        <div id="TaskUserName">
+                                            <p>{ task.user.name.toUpperCase() }</p>
+                                        </div>
+                                    }
 
+                                <div className='TaskInformation'>
+                                    
                                     <div className='LeftBlockTask'>
                                         <h4 className='CategoryTask'>{ task.category.toUpperCase() }</h4>
                                         <div className='TaskDescription'>

@@ -1,5 +1,5 @@
 import mongoose, { Schema , Model , model } from "mongoose";
-import { User, IUser } from "./User";
+import { IUser } from "./User";
 
 interface ITask {
     title : string;
@@ -8,7 +8,7 @@ interface ITask {
     endDate : Date;
     category : string;
     isDone: boolean;
-    user : Schema.Types.ObjectId;
+    user : Schema.Types.ObjectId | IUser;
 }; 
 
 const TaskSchema  = new Schema<ITask>({
@@ -35,7 +35,8 @@ const TaskSchema  = new Schema<ITask>({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 
 });

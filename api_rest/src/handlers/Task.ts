@@ -18,7 +18,7 @@ const addTask = async (request: Request, response: Response): Promise<void> => {
 const getAllTasks = async (request: Request, response: Response): Promise<void> => {
 
     try {
-        const task : ITask[] = await Task.find();
+        const task : ITask[] = await Task.find().populate('user');
         task ? response.json(task) : response.status(404).send({error : {
             code : 404,
             message : "Not found"

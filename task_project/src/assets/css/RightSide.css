@@ -57,7 +57,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 85%;
+    width: 80%;
     margin-right: 20px;
     margin-left: 20px;
     background: #E2D5B8;
@@ -122,4 +122,9 @@
     background: #E2D5B8;
     border: 1px solid #000000;
     border-radius: 00px 30px 30px 00px;
+  }
+
+  #TaskUserName {
+    width: 5%;
+    font-weight: bold;
   }
