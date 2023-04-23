@@ -20,7 +20,7 @@
     margin-top: 50px;
 }
 
-/* --- SECTION 1 : Selectors and button for filters, order by and add task --- */
+/* --- Selectors and button for filters, order by and add task --- */
 
 .TaskActions {
     display: flex;
@@ -39,9 +39,7 @@
     padding: 15px;
 }
 
-/* ------------------------------ END SECTION 1 ------------------------------ */
-/* --------------------------------------------------------------------------- */
-/* --------- SECTION 2 : Container with task information and actions --------- */
+/* --------- Container with task information and actions --------- */
 
 .TaskContainer {
     position: relative;
